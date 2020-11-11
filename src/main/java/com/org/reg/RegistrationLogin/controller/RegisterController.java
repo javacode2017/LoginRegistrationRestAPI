@@ -1,6 +1,8 @@
 package com.org.reg.RegistrationLogin.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,6 +13,7 @@ import com.org.reg.RegistrationLogin.model.User;
 import com.org.reg.RegistrationLogin.service.RegistrationService;
 
 @RestController
+@CrossOrigin(origins="http://localhost:4200")  
 public class RegisterController {
 
 	@Autowired
@@ -28,8 +31,7 @@ public class RegisterController {
 				throw new Exception("User already exist with mailId");
 			}
 				
-		}
-		
+		}		
 		User userObj = null;
 		userObj = registrationService.registerUser(user);
 		
@@ -37,6 +39,7 @@ public class RegisterController {
 	}
 	@PostMapping("/login")
 	public User loginUser(@RequestBody User user) throws Exception {
+		System.out.println("angular call");
 		String email = user.getEmailId();
 		String password = user.getPassword();
 		System.out.println("email and password"+email+""+password);
@@ -48,7 +51,12 @@ public class RegisterController {
 		if(userObj == null) {
 			throw new Exception("Bad Credentials ,User does not exist with Email"+email);
 		}
-		return user;
+		return userObj;
+	}
+	@GetMapping("/hello")
+	@CrossOrigin(origins = "http://localhost:4200")
+	public String hello() {
+		return "response ok";
 	}
 	
 	
