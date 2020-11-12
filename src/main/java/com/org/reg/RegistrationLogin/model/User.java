@@ -19,25 +19,16 @@ import javax.persistence.Table;
 public class User {
  
  @Id
- private int id;
- 
- private String username;
- 
- 
- 
- private String emailId;
- 
- private String password;
- 
- 
+ @GeneratedValue(strategy = GenerationType.AUTO)
+ private int id; 
+ private String username;  
+ private String emailId; 
+ private String password; 
 
-public User() {
+ public User() {
 	super();
-}
-
-
-
-public User(int id, String username, String emailId, String password) {
+ }
+ public User(int id, String username, String emailId, String password) {
 	super();
 	this.id = id;
 	this.username = username;
